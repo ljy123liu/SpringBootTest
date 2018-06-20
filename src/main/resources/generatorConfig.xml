@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <properties resource="application.properties"/>
+    <!-- 指定数据库连接驱动jara地址 -->
+    <!-- 数据库驱动:选择本地硬盘上面的数据库驱动包-->
+    <!--<classPathEntry location="${jdbc.driverLocation}"></classPathEntry>-->
+    <classPathEntry location="/Users/yong/Desktop/SpringBoot/src/main/resources/lib/mysql-connector-java-5.1.46.jar"/>
+
+    <!-- 一个数据库一个context -->
+    <context id="mysqltable1" targetRuntime="Mybatis3">
+        <!-- 生成的pojo，将implements Serializable -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+        <commentGenerator>
+            <!-- 是否取消注释 -->
+            <!--是否去除自动生成注释true：是 false：否-->
+            <property name="suppressAll" value="true"></property>
+        </commentGenerator>
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <!--</jdbcConnection>-->
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}"/>
+        <!--mybatis里专门用来处理NUMERIC和DECIMAL类型的策略-->
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer;
+          设置为true，把JDBC DECIMAL 和NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"></property>
+        </javaTypeResolver>
+
+        <!--生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.example.demo.test.entity" targetProject="src/main/java">
+            <!--enableSubPackages:是否让schema作为报的后缀-->
+            <property name="enableSubPackages" value="true"></property>
+            <!--从数据库返回的值被清理前后的空格-->
+            <property name="trimStrings" value="true"></property>
+        </javaModelGenerator>
+        <!--生成映射文件的包名和位置 mapper.xml
+        注意位置： targetProject="src/main/resources"
+        -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"></property>
+        </sqlMapGenerator>
+        <!--生成DAOMapper的包名和位置 mapper.java-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.test.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"></property>
+        </javaClientGenerator>
+        <!--table是指定每个表的生成策略-->
+        <!--tableName:用于自动生成代码数据库中的表名或视图名，domainObjectName:是对应的实体类名-->
+        <table
+                tableName="User_Info"
+                domainObjectName="UserInfo"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"></property>
+        </table>
+    </context>
+</generatorConfiguration>
