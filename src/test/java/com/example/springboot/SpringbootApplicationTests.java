@@ -1,4 +1,4 @@
-package com.ljy.demo;
+package com.example.springboot;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,11 +7,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DemoApplicationTests {
+public class SpringbootApplicationTests {
 
 	@Test
 	public void contextLoads() {
 	}
 
 }
-
