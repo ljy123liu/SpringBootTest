@@ -13,6 +13,7 @@ public class RedisController {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -25,6 +26,15 @@ public class RedisController {
     @PostMapping("/set/{key}/{value}")
     public String setRedis(@PathVariable(name="key")String key,@PathVariable(name="value")String value){
         stringRedisTemplate.opsForValue().set(key,value);
+        return "SUCCESS";
+    }
+
+    @GetMapping("/setEntity")
+    public String setEntity() {
+        RedisBean redisBean = new RedisBean();
+        redisBean.setAge(18);
+        redisBean.setName("小明");
+        redisTemplate.opsForValue().set("redis",redisBean);
         return "SUCCESS";
     }
 
